@@ -121,12 +121,12 @@ class RtmBot(object):
                 logging.info("config found for: " + name)
             plugin_config = self.config.get(name, {})
             plugin_config['DEBUG'] = self.debug
-            self.bot_plugins.append(Plugin(name, plugin_config))
+            self.bot_plugins.append(Plugin(name, plugin_config, self.slack_client))
 
 
 class Plugin(object):
 
-    def __init__(self, name, plugin_config=None):
+    def __init__(self, name, plugin_config=None, slack_client=None):
         '''
         A plugin in initialized with:
             - name (str)
@@ -140,6 +140,7 @@ class Plugin(object):
         self.jobs = []
         self.module = __import__(name)
         self.module.config = plugin_config
+        self.module.slack_client = slack_client
         self.debug = self.module.config.get('DEBUG', False)
         self.register_jobs()
         self.outputs = []
