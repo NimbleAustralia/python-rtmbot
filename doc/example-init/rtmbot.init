@@ -15,8 +15,8 @@ PATH="/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin"
 APPDIR="/opt/rtmbot"
 APPBIN="rtmbot.py"
 APPARGS="--config ${APPDIR}/rtmbot.conf"
-USER="ubuntu"
-GROUP="ubuntu"
+USER="rtmbot"
+GROUP="rtmbot"
 
 # Include functions 
 set -e
