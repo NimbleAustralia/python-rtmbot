@@ -63,12 +63,16 @@ class RtmBot(object):
         self.connect()
         self.load_plugins()
         while True:
-            for reply in self.slack_client.rtm_read():
-                self.input(reply)
-            self.crons()
-            self.output()
-            self.autoping()
-            time.sleep(.1)
+            try:
+                for reply in self.slack_client.rtm_read():
+                    self.input(reply)
+                self.crons()
+                self.output()
+                self.autoping()
+                time.sleep(.1)
+            except SlackNotConnected:
+                time.sleep(5)
+                self.connect()
 
     def start(self):
         if 'DAEMON' in self.config:
