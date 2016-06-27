@@ -76,7 +76,7 @@ class RtmBot(object):
                 time.sleep(5)
                 try:
                     self.connect()
-                except:
+                except SocketError:
                     pass
 
     def start(self):
