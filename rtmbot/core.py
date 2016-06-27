@@ -7,6 +7,8 @@ import time
 import logging
 
 from slackclient import SlackClient
+from slackclient._client import SlackNotConnected
+from socket import error as SocketError
 
 sys.dont_write_bytecode = True
 
@@ -70,9 +72,12 @@ class RtmBot(object):
                 self.output()
                 self.autoping()
                 time.sleep(.1)
-            except SlackNotConnected:
+            except (SlackNotConnected, SocketError):
                 time.sleep(5)
-                self.connect()
+                try:
+                    self.connect()
+                except:
+                    pass
 
     def start(self):
         if 'DAEMON' in self.config:
