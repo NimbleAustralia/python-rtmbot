@@ -9,6 +9,7 @@ import logging
 from slackclient import SlackClient
 from slackclient._client import SlackNotConnected
 from socket import error as SocketError
+from websocket import WebSocketException
 
 sys.dont_write_bytecode = True
 
@@ -72,7 +73,7 @@ class RtmBot(object):
                 self.output()
                 self.autoping()
                 time.sleep(.1)
-            except (SlackNotConnected, SocketError):
+            except (SlackNotConnected, SocketError, WebSocketException):
                 time.sleep(5)
                 try:
                     self.connect()
