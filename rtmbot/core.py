@@ -7,7 +7,7 @@ import time
 import logging
 
 from slackclient import SlackClient
-from slackclient._client import SlackNotConnected
+from slackclient.client import SlackNotConnected
 from socket import error as SocketError
 from websocket import WebSocketException
 
